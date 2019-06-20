@@ -38,5 +38,7 @@ You can import all libraries in your gradle from code below
      testImplementation "android.arch.core:core-testing:1.1.1"
      
  Creating new feature is very simple
- ![alt text](https://raw.githubusercontent.com/mdevil/AndroidTemplates/images/selection.png)
- ![alt text](https://raw.githubusercontent.com/mdevil/AndroidTemplates/images/new_feature.png)
+ 1. select new MVVM+Rx fragment from CleanArchitecture
+ ![alt text](https://raw.githubusercontent.com/mdevilnsk/AndroidTemplates/master/images/selection.png)
+ 2. Input Feature name
+ ![alt text](https://raw.githubusercontent.com/mdevilnsk/AndroidTemplates/master/images/new_feature.png)
