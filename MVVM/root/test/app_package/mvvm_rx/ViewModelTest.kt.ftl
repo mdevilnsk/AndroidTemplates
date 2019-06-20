@@ -3,6 +3,7 @@ package ${packageName}.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import io.reactivex.Single
+import ${packageName}.domain.${featureName}Interactor
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

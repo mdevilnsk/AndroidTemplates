@@ -1,4 +1,4 @@
-package ${packageName}
+package ${packageName}.domain
 
 import org.junit.After
 import org.junit.Before

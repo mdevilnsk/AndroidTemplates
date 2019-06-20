@@ -1,6 +1,6 @@
 <template format="4"
         revision="1"
-        name="MVVM Fragment"
+        name="MVVM+Rx Fragment"
         description="Creates a new Fragment with viewmodel and interactor">
 
     <category value="CleanArchitecture"/>
