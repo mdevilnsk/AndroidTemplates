@@ -35,7 +35,7 @@ You can import all libraries in your gradle from code below
      //testing
      testImplementation "junit:junit:4.12"
      testImplementation "org.mockito:mockito-core:2.24.5"
-     testImplementation "android.arch.core:core-testing:1.1.1"
+     testImplementation 'androidx.arch.core:core-testing:2.0.1'
      
  Creating new feature is very simple
  1. select new MVVM+Rx fragment from CleanArchitecture
