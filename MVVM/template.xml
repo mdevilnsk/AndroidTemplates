@@ -1,0 +1,26 @@
+<template format="4"
+        revision="1"
+        name="MVVM Fragment"
+        description="Creates a new Fragment with viewmodel and interactor">
+
+    <category value="CleanArchitecture"/>
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.mycompany.myapp" />
+        
+    <parameter
+        id="featureName"
+        name="Feature Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="FeatureName"
+        help="The name of the feature to create" />
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
