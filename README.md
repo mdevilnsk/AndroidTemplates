@@ -37,7 +37,7 @@ You can import all libraries in your gradle from code below
      testImplementation "org.mockito:mockito-core:2.24.5"
      testImplementation 'androidx.arch.core:core-testing:2.0.1'
      
- Creating new feature is very simple
+ Creating new feature is very simple (**check examle in samples section**)
  1. select new MVVM+Rx fragment from CleanArchitecture
  ![alt text](https://raw.githubusercontent.com/mdevilnsk/AndroidTemplates/master/images/selection.png)
  2. Input Feature name
