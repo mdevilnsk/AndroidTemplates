@@ -42,3 +42,5 @@ You can import all libraries in your gradle from code below
  ![alt text](https://raw.githubusercontent.com/mdevilnsk/AndroidTemplates/master/images/selection.png)
  2. Input Feature name
  ![alt text](https://raw.githubusercontent.com/mdevilnsk/AndroidTemplates/master/images/new_feature.png)
+
+P.S. interfaces are created for tests. You can remove them and read [this article](https://www.baeldung.com/mockito-final) to mock final classes
