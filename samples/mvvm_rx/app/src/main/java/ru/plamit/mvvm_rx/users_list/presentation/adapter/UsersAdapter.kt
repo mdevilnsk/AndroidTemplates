@@ -32,6 +32,9 @@ class UsersAdapter(
             .load(users[position].picUrl)
             .into(holder.itemView.imageProfile)
 
+        holder.itemView.setOnClickListener {
+            listener(position)
+        }
         holder.itemView.textProfile.text = users[position].name
     }
 
