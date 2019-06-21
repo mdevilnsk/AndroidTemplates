@@ -1,9 +1,9 @@
-package ${packageName}.presentation
+package ru.plamit.mvvm_rx.users_list.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import io.reactivex.Single
-import ${packageName}.domain.${featureName}Interactor
+import ru.plamit.mvvm_rx.users_list.domain.UsersListInteractor
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -13,23 +13,24 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
+import ru.plamit.mvvm_rx.users_list.domain.User
 
 @Suppress("UNCHECKED_CAST")
 @RunWith(MockitoJUnitRunner::class)
-class ${featureName}ViewModelTest {
+class UsersListViewModelTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
-    private lateinit var viewModel: ${featureName}ViewModel
-    private val interactor = mock(${featureName}Interactor::class.java)
+    private lateinit var viewModel: UsersListViewModel
+    private val interactor = mock(UsersListInteractor::class.java)
     private val viewStateObserver = mock(
         Observer::class.java
         //            , Mockito.withSettings().verboseLogging() //uncomment to get logging of vm observer
-    ) as Observer<${featureName}ViewState>
+    ) as Observer<UsersListViewState>
 
     @Before
     fun setUp() {
-        viewModel = ${featureName}ViewModel(interactor)
+        viewModel = UsersListViewModel(interactor)
     }
 
     @After
@@ -41,16 +42,16 @@ class ${featureName}ViewModelTest {
     @Test
     fun `should return success`() {
         //precondition
-        `when`(interactor.getSmth(anyBoolean())).thenReturn(Single.just("success"))
+        `when`(interactor.getUsers(anyBoolean())).thenReturn(Single.just(generateUserList()))
 
         //action
         viewModel.viewState.observeForever(viewStateObserver)
-        viewModel.getSmth()
+        viewModel.getUsers()
 
         //result
-        verify(interactor).getSmth()
+        verify(interactor).getUsers()
         verify(viewStateObserver).onChanged(
-            ${featureName}ViewState("success", null)
+            UsersListViewState(generateUserList(), null)
         )
     }
 
@@ -58,16 +59,22 @@ class ${featureName}ViewModelTest {
     fun `should return error`() {
         //precondition
         val error = Throwable("error")
-        `when`(interactor.getSmth(anyBoolean())).thenReturn(Single.error(error))
+        `when`(interactor.getUsers(anyBoolean())).thenReturn(Single.error(error))
 
         //action
         viewModel.viewState.observeForever(viewStateObserver)
-        viewModel.getSmth()
+        viewModel.getUsers()
 
         //result
-        verify(interactor).getSmth()
+        verify(interactor).getUsers()
         verify(viewStateObserver).onChanged(
-            ${featureName}ViewState(null, error)
+            UsersListViewState(null, error)
         )
     }
+
+    private fun generateUserList() = arrayListOf(
+        User("url1", "name1"),
+        User("url2", "name2"),
+        User("url3", "name3")
+    )
 }

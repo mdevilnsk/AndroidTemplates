@@ -1,14 +1,14 @@
-package ${packageName}.presentation
+package ru.plamit.mvvm_rx.users_list.presentation
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.Disposable
-import ${packageName}.domain.${featureName}Interactor
+import ru.plamit.mvvm_rx.users_list.domain.UsersListInteractor
 
-class ${featureName}ViewModel(private val interactor: ${featureName}Interactor) : ViewModel() {
+class UsersListViewModel(private val interactor: UsersListInteractor) : ViewModel() {
 
-    val viewState: MutableLiveData<${featureName}ViewState> = MutableLiveData()
+    val viewState: MutableLiveData<UsersListViewState> = MutableLiveData()
     val disposables: MutableList<Disposable> = ArrayList()
 
     fun addSubscription(disposable: Disposable) {
@@ -22,13 +22,12 @@ class ${featureName}ViewModel(private val interactor: ${featureName}Interactor) 
     }
 
     @SuppressLint("CheckResult")
-    //TODO: implement your logic
-    fun getSmth(force: Boolean = false) {
+    fun getUsers(force: Boolean = false) {
         addSubscription(
-            interactor.getSmth(force).subscribe({
-                viewState.postValue(${featureName}ViewState(value = it))
+            interactor.getUsers(force).subscribe({
+                viewState.postValue(UsersListViewState(value = it))
             }, {
-                viewState.postValue(${featureName}ViewState(error = it))
+                viewState.postValue(UsersListViewState(error = it))
             })
         )
     }
