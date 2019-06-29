@@ -44,7 +44,7 @@ class ${featureName}ViewModelTest {
         `when`(interactor.getSmth(anyBoolean())).thenReturn(Single.just("success"))
 
         //action
-        viewModel.viewState.observeForever(viewStateObserver)
+        viewModel.getViewState().observeForever(viewStateObserver)
         viewModel.getSmth()
 
         //result
@@ -61,7 +61,7 @@ class ${featureName}ViewModelTest {
         `when`(interactor.getSmth(anyBoolean())).thenReturn(Single.error(error))
 
         //action
-        viewModel.viewState.observeForever(viewStateObserver)
+        viewModel.getViewState().observeForever(viewStateObserver)
         viewModel.getSmth()
 
         //result

@@ -1,15 +1,19 @@
 package ${packageName}.presentation
 
 import android.annotation.SuppressLint
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import ${packageName}.domain.${featureName}Interactor
 
 class ${featureName}ViewModel(private val interactor: ${featureName}Interactor) : ViewModel() {
 
-    val viewState: MutableLiveData<${featureName}ViewState> = MutableLiveData()
-    val disposables: MutableList<Disposable> = ArrayList()
+    private val viewStateData: MutableLiveData<${featureName}ViewState> = MutableLiveData()
+    val disposables: CompositeDisposable = CompositeDisposable()
+
+    fun getViewState(): LiveData<${featureName}ViewState> = viewStateData
 
     fun addSubscription(disposable: Disposable) {
         disposables.add(disposable)
@@ -17,7 +21,6 @@ class ${featureName}ViewModel(private val interactor: ${featureName}Interactor) 
 
     override fun onCleared() {
         super.onCleared()
-        disposables.forEach { it.dispose() }
         disposables.clear()
     }
 
@@ -26,9 +29,9 @@ class ${featureName}ViewModel(private val interactor: ${featureName}Interactor) 
     fun getSmth(force: Boolean = false) {
         addSubscription(
             interactor.getSmth(force).subscribe({
-                viewState.postValue(${featureName}ViewState(value = it))
+                viewStateData.postValue(${featureName}ViewState(value = it))
             }, {
-                viewState.postValue(${featureName}ViewState(error = it))
+                viewStateData.postValue(${featureName}ViewState(error = it))
             })
         )
     }

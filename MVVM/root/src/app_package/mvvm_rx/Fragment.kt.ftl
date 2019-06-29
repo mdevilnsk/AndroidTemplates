@@ -20,7 +20,7 @@ class ${featureName}Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        featureViewModel.viewState.observe(this, Observer { response ->
+        featureViewModel.getViewState().observe(this, Observer { response ->
             if (response.error != null) {
                 //TODO: show error
             } else {
