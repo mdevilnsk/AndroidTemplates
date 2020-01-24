@@ -2,15 +2,17 @@ package ${packageName}.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+<#if includeInteractors>
 import io.reactivex.Single
 import ${packageName}.domain.${featureName}Interactor
+import org.mockito.ArgumentMatchers.anyBoolean
+</#if>
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -21,7 +23,9 @@ class ${featureName}ViewModelTest {
     var rule: TestRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: ${featureName}ViewModel
+    <#if includeInteractors>
     private val interactor = mock(${featureName}Interactor::class.java)
+    </#if>
     private val viewStateObserver = mock(
         Observer::class.java
         //            , Mockito.withSettings().verboseLogging() //uncomment to get logging of vm observer
@@ -29,26 +33,35 @@ class ${featureName}ViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = ${featureName}ViewModel(interactor)
+        viewModel = ${featureName}ViewModel(<#if includeInteractors>interactor</#if>)
     }
 
     @After
     fun tearDown() {
+    <#if includeInteractors>
         verifyNoMoreInteractions(interactor)
+    </#if>
         verifyNoMoreInteractions(viewStateObserver)
     }
 
     @Test
     fun `should return success`() {
         //precondition
+    <#if includeInteractors>
         `when`(interactor.getSmth(anyBoolean())).thenReturn(Single.just("success"))
+    <#else>
+        //TODO: write your precondition, forexample
+        //`when`(interactor.getSmth(anyBoolean())).thenReturn(Single.just("success"))
+    </#if>
 
         //action
         viewModel.getViewState().observeForever(viewStateObserver)
         viewModel.getSmth()
 
         //result
+        <#if includeInteractors>
         verify(interactor).getSmth()
+        </#if>
         verify(viewStateObserver).onChanged(
             ${featureName}ViewState("success", null)
         )
@@ -57,17 +70,28 @@ class ${featureName}ViewModelTest {
     @Test
     fun `should return error`() {
         //precondition
+         <#if includeInteractors>
         val error = Throwable("error")
         `when`(interactor.getSmth(anyBoolean())).thenReturn(Single.error(error))
+        <#else>
+            //TODO: write your precondition, forexample
+            // `when`(interactor.getSmth(anyBoolean())).thenReturn(Single.error(error))
+        </#if>
+
 
         //action
         viewModel.getViewState().observeForever(viewStateObserver)
         viewModel.getSmth()
 
         //result
-        verify(interactor).getSmth()
         verify(viewStateObserver).onChanged(
+        <#if includeInteractors>
+        verify(interactor).getSmth()
             ${featureName}ViewState(null, error)
+        <#else>
+            ${featureName}ViewState("success", null)
+        </#if>
         )
     }
+
 }

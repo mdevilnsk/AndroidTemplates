@@ -20,6 +20,13 @@
         default="FeatureName"
         help="The name of the feature to create" />
 
+    <parameter
+        id="includeInteractors"
+        name="Include interactors"
+        type="boolean"
+        default="true"
+        help="add interactors to code" />
+
     <globals file="globals.xml.ftl" />
     <execute file="recipe.xml.ftl" />
 
