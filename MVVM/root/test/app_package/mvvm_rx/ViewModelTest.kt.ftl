@@ -3,7 +3,7 @@ package ${packageName}.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 <#if includeInteractors>
-import io.reactivex.Single
+import rx.Single
 import ${packageName}.domain.${featureName}Interactor
 import org.mockito.ArgumentMatchers.anyBoolean
 </#if>
@@ -55,7 +55,7 @@ class ${featureName}ViewModelTest {
     </#if>
 
         //action
-        viewModel.getViewState().observeForever(viewStateObserver)
+        viewModel.viewState.observeForever(viewStateObserver)
         viewModel.getSmth()
 
         //result
@@ -63,7 +63,7 @@ class ${featureName}ViewModelTest {
         verify(interactor).getSmth()
         </#if>
         verify(viewStateObserver).onChanged(
-            ${featureName}ViewState("success", null)
+            ${featureName}Result("success")
         )
     }
 
@@ -80,16 +80,18 @@ class ${featureName}ViewModelTest {
 
 
         //action
-        viewModel.getViewState().observeForever(viewStateObserver)
+        viewModel.viewState.observeForever(viewStateObserver)
         viewModel.getSmth()
 
         //result
-        verify(viewStateObserver).onChanged(
         <#if includeInteractors>
         verify(interactor).getSmth()
-            ${featureName}ViewState(null, error)
+        </#if>
+        verify(viewStateObserver).onChanged(
+        <#if includeInteractors>
+            ${featureName}ResultError
         <#else>
-            ${featureName}ViewState("success", null)
+            ${featureName}Result("success")
         </#if>
         )
     }

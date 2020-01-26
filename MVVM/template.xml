@@ -24,7 +24,7 @@
         id="includeInteractors"
         name="Include interactors"
         type="boolean"
-        default="true"
+        default="false"
         help="add interactors to code" />
 
     <globals file="globals.xml.ftl" />

@@ -8,10 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.fragment_${classToResource(featureName)}.*
+import ru.pochtabank.ui.base.mvvm.BaseMvvmFragment
 
-class ${featureName}Fragment : Fragment() {
+class ${featureName}Fragment : BaseMvvmFragment() {
 
-    private val featureViewModel: ${featureName}ViewModel by viewModel()
+    override val viewModel: ${featureName}ViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_${classToResource(featureName)}, container, false)
@@ -20,15 +21,14 @@ class ${featureName}Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        featureViewModel.getViewState().observe(this, Observer { response ->
-            if (response.error != null) {
-                //TODO: show error
-            } else {
-                //TODO: show success response
+        viewModel.viewState.observe(this, Observer { response ->
+            when(response){
+                is ${featureName}ResultError -> {} //TODO: show error
+                is ${featureName}Result -> {} //TODO: show success response
             }
         })
 
-        featureViewModel.getSmth(true)
+        viewModel.getSmth(true)
     }
 
     //TODO: Write your code here

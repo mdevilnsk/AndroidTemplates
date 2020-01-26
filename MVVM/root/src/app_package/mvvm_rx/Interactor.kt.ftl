@@ -1,6 +1,6 @@
 package ${packageName}.domain
 
-import io.reactivex.Single
+import rx.Single
 
 //TODO: implement interactor
 interface ${featureName}Interactor {

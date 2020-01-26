@@ -1,6 +1,6 @@
 package ${packageName}.domain
 
-import io.reactivex.Single
+import rx.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 

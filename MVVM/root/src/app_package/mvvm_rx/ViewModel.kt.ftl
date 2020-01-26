@@ -3,47 +3,38 @@ package ${packageName}.presentation
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.Disposable
-import io.reactivex.disposables.CompositeDisposable
+import ru.pochtabank.ui.base.mvvm.BaseViewModel
  <#if includeInteractors>
 import ${packageName}.domain.${featureName}Interactor
+import ru.pochtabank.ui.base.mvvm.BaseViewModel
+
 </#if>
 
-class ${featureName}ViewModel(<#if !includeInteractors>): ViewModel() {
+class ${featureName}ViewModel(<#if !includeInteractors>): BaseViewModel() {
 <#else>
     private val interactor: ${featureName}Interactor
-) : ViewModel() {
+) : BaseViewModel() {
 </#if>
 
     private val viewStateData: MutableLiveData<${featureName}ViewState> = MutableLiveData()
-    val disposables: CompositeDisposable = CompositeDisposable()
 
-    fun getViewState(): LiveData<${featureName}ViewState> = viewStateData
-
-    fun addSubscription(disposable: Disposable) {
-        disposables.add(disposable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposables.clear()
-    }
+    val viewState: LiveData<${featureName}ViewState>
+        get() = viewStateData
 
     @SuppressLint("CheckResult")
     //TODO: implement your logic.
     fun getSmth(force: Boolean = false) {
         <#if includeInteractors>
-        addSubscription(
+        subscriptions.add(
             interactor.getSmth(force).subscribe({
-                viewStateData.postValue(${featureName}ViewState(value = it))
+                viewStateData.postValue(${featureName}Result(value = it))
             }, {
-                viewStateData.postValue(${featureName}ViewState(error = it))
+                viewStateData.postValue(${featureName}ResultError)
             })
         )
         <#else>
             //TODO: You can add RX subscription with function addSubscription()
-            viewStateData.postValue(${featureName}ViewState(value = it))
+            viewStateData.postValue(${featureName}Result(value = "success"))
         </#if>
 
     }
