@@ -84,9 +84,11 @@ class ${featureName}ViewModelTest {
         viewModel.getSmth()
 
         //result
-        verify(viewStateObserver).onChanged(
         <#if includeInteractors>
         verify(interactor).getSmth()
+        </#if>
+        verify(viewStateObserver).onChanged(
+        <#if includeInteractors>
             ${featureName}ViewState(null, error)
         <#else>
             ${featureName}ViewState("success", null)
