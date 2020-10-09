@@ -9,6 +9,8 @@ This module creates
 4. Interactor with interface + unitTest
 
 For install module on Mac OS use install.sh
+For install on Windows please copy path MVVM to {ANDROID_STUDIO_LOCATION}/plugins/android/lib/templates/other/
+
 After install You need to restart Android Studio
 
 This template uses 
