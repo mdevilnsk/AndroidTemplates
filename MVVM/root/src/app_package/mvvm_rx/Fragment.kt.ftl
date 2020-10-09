@@ -10,13 +10,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.fragment_${classToResource(featureName)}.*
 import ru.pochtabank.ui.base.mvvm.BaseMvvmFragment
 
-class ${featureName}Fragment : BaseMvvmFragment() {
+class ${featureName}Fragment : BaseMvvmFragment(R.layout.fragment_${classToResource(featureName)) {
 
     override val viewModel: ${featureName}ViewModel by viewModel()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_${classToResource(featureName)}, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
